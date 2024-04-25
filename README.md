@@ -1,7 +1,10 @@
-Docsify Server
-==============
+# NGINX Instance Manager Templating Lab
 
-## Getting Started
+All of the docs are contained in the `/docs` folder. Follow the documentation below to compile them into a cointainer.
+
+## Docsify Server
+
+### Getting Started
 
 After cloning this repo, create a `README.md` file in the `/docs` folder. This will be your site's entrypoint/home-page.
 
