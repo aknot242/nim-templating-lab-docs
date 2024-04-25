@@ -6,7 +6,7 @@ Since the inception of NGINX Instance Manager (NIM), managing NGINX configuratio
 
 ## Announcing Config Templates for NIM
 
-As of the 2.16 (April 2024) release, NIM introduces Go templating to simplify creating and standardizing NGINX configurations. These config templates create an abstraction layer for NGINX configuration files, enabling users to provide parameters to generate a working configuration without needing a deep knowledge of NGINX syntax. These templates simplify configuring NGINX, enforce best practices for configurations, and enable self-service permissions for app development.
+In the 2.16 (April 2024) release, NIM introduced Go templating to simplify creating and standardizing NGINX configurations. These config templates create an abstraction layer for NGINX configuration files, enabling users to provide parameters to generate a working configuration without needing a deep knowledge of NGINX syntax. These templates simplify configuring NGINX, enforce best practices for configurations, and enable self-service permissions for app development.
 
 In this lab we will introduce you to the design on the NIM templating system, as well as walk through using it to apply configuration changes to an NGINX instance as different personae.
 
@@ -92,6 +92,7 @@ Ready to get started?
 The UDF lab consists of:
 
 - A VM with NIM installed
+- A VM with KeyCloak to provide single sign-on to NIM using OIDC
 - A VM hosting a workload, specifically the [OWASP PyGoat application](https://github.com/adeyosemanputra/pygoat)
 - A VM hosting NGINX and Agent, managed by NIM
 - A JumpHost VM with a virtual FireFox instance for accessing the web interfaces used in this lab
@@ -106,21 +107,21 @@ Begin by logging into NIM as Paul in the following steps. Paul has the NIM admin
 
 1. In the UDF deployment, select the **NIM** access method of the **NIM** component.
 
-(TODO: image)
+    (TODO: image)
 
 1. Click **Sign In**. You will be redirected to KeyCloak. When prompted for credentials, enter `paulplatops` as the user, `NIM123!@#` as the password.
 
 1. Click the **Instance Manager** tile.
 
-(TODO: image)
+    (TODO: image)
 
-If you are familiar with NIM, things may seem typical to you, with the addition of **Templates** and **Template Submissions** links in the left navigation:
+    If you are familiar with NIM, things may seem typical to you, with the addition of **Templates** and **Template Submissions** links in the left navigation:
 
-(TODO: image)
+    (TODO: image)
 
 1. Click the **Templates** link. Note there is one base template listed, **F5 Global Default Base**
 
-> Note: While **F5 Global Default Base** ships with NIM, it does not provide a complete configuration when executed. To accomplish this, we will be installing a custom base template of our own.
+    > Note: While **F5 Global Default Base** ships with NIM, it does not provide a complete configuration when executed. To accomplish this, we will be installing a custom base template of our own.
 
 ### Examine Default NGINX State
 
@@ -134,7 +135,7 @@ In UDF, click the **Firefox** access method of the **JumpHost** component. This 
 
 1. Back in the NIM tab, click the **Instances** link in the left navigation.
 
-(TODO: image)
+    (TODO: image)
 
 1. Select **nginx.f5demos.com**. Note that it is online, and ready to receive management commands from NIM.
 
@@ -156,7 +157,7 @@ Acting as as Paul, you will first install the base template he developed. Then, 
 
 1. Click the green **+ Create** button in the upper right corner.
 
-At this point we have the choice to create a new base template from scratch, or to import an existing one. A template bundle has been created for you, so select **Import**.
+    At this point we have the choice to create a new base template from scratch, or to import an existing one. A template bundle has been created for you, so select **Import**.
 
 1. Click **Browse** to browse the JumpHost's file system for the template we wish to import.
 
@@ -164,7 +165,7 @@ At this point we have the choice to create a new base template from scratch, or 
 
 1. Click the green **Parse** button in the lower right to scan and analyze the contents of this template bundle.
 
-> Note: You will see a message similar to *"archive is either unsigned or missing its signature file"*. This is a precautionary message, cautioning the user against importing templates that may have originated from an unofficial source. Since this is a custom template, it is not signed by F5.
+    > Note: You will see a message similar to *"archive is either unsigned or missing its signature file"*. This is a precautionary message, cautioning the user against importing templates that may have originated from an unofficial source. Since this is a custom template, it is not signed by F5.
 
 1. Check the **Allow Signature Bypass** checkbox to override the import dialog.
 
@@ -174,7 +175,7 @@ At this point we have the choice to create a new base template from scratch, or 
 
 1. You will see the **Config Template Created** message, and see the newly imported base template on the **Templates** page.
 
-> Note: The newly imported base template will show a **State** of *Draft*. This simply means that the template can be edited in NIM's template editor. As the template author, you can mark a template as **Ready for Use** to prevent it from being unintentionally modified.
+    > Note: The newly imported base template will show a **State** of *Draft*. This simply means that the template can be edited in NIM's template editor. As the template author, you can mark a template as **Ready for Use** to prevent it from being unintentionally modified.
 
 #### Deploy NGINX Config Using a Template
 
@@ -194,54 +195,54 @@ At this point we have the choice to create a new base template from scratch, or 
 
 1. Enter the following data in this section:
 
-| Item                     | Value       |
-|--------------------------|-------------|
-| Server Label             | pygoat      |
-| Listen -> Port           | 443         |
-| Listen -> Default Server | TRUE        |
+    | Item                     | Value       |
+    |--------------------------|-------------|
+    | Server Label             | pygoat      |
+    | Listen -> Port           | 443         |
+    | Listen -> Default Server | TRUE        |
 
 1. Under **Server name**, click **+ Add item**.
 
 1. Enter the following data:
 
-| Item                                 | Value              |
-|--------------------------------------|--------------------|
-| Server name -> ITEM 1 -> Server name | pygoat.f5demos.com |
+    | Item                                 | Value              |
+    |--------------------------------------|--------------------|
+    | Server name -> ITEM 1 -> Server name | pygoat.f5demos.com |
 
 1. In the **TLS Settings** section, enter the following data:
 
-| Item                     | Value                                         |
-|--------------------------|-----------------------------------------------|
-| Enable TLS               | TRUE                                          |
-| TLS Certificate Path     | /etc/ssl/certs/wildcard.f5demos.com.crt.pem   |
-| TLS Keyfile Path         | /etc/ssl/private/wildcard.f5demos.com.key.pem |
-| Redirect Port            | 80                                            |
+    | Item                     | Value                                         |
+    |--------------------------|-----------------------------------------------|
+    | Enable TLS               | TRUE                                          |
+    | TLS Certificate Path     | /etc/ssl/certs/wildcard.f5demos.com.crt.pem   |
+    | TLS Keyfile Path         | /etc/ssl/private/wildcard.f5demos.com.key.pem |
+    | Redirect Port            | 80                                            |
 
 1. In the **Server Locations** section, click the **Add Server Locations** link.
 
 1. Enter the following data in this section:
 
-| Item                     | Value           |
-|--------------------------|-----------------|
-| Location Match Strategy  | Prefix          |
-| URI                      | /               |
-| Upstream Name            | pygoat-upstream |
+    | Item                     | Value           |
+    |--------------------------|-----------------|
+    | Location Match Strategy  | Prefix          |
+    | URI                      | /               |
+    | Upstream Name            | pygoat-upstream |
 
-> Note: Do not enter any information into the **Proxy Headers** portion of the template form.
+    > Note: Do not enter any information into the **Proxy Headers** portion of the template form.
 
-That was a lot of data entry. But what did we just do? Based on the data we entered into the **HTTP Servers** template, we intend to:
+    That was a lot of data entry! But what did we just do? Based on the data we entered into the **HTTP Servers** template, we intend to:
 
-- Create a new HTTP Server called **pygoat.f5demos.com**
-- THis server should listen on port 443
-- Will be the default HTTP server
-- Will encrypt communications using TLS
-- Reference an existing certificate and key for TLS
-- Will redirect any HTTP traffic to HTTPS
-- Create a single location using the `/` path prefix
-- Requests made to this location will pass traffic to an upstream called **pygoat-upstream**
-- No Proxy Headers were configured
+    - Create a new HTTP Server called **pygoat.f5demos.com**
+    - THis server should listen on port 443
+    - Will be the default HTTP server
+    - Will encrypt communications using TLS
+    - Reference an existing certificate and key for TLS
+    - Will redirect any HTTP traffic to HTTPS
+    - Create a single location using the `/` path prefix
+    - Requests made to this location will pass traffic to an upstream called **pygoat-upstream**
+    - No Proxy Headers were configured
 
-But where is the upstream itself defined?
+    But where is the upstream itself defined?
 
 1. Click **Next**. You will be presented with a form to collect the details of the upstream server for the PyGoat application, which is hosted on the `workloads.f5demos.com` server.
 
@@ -249,33 +250,33 @@ But where is the upstream itself defined?
 
 1. Enter the following data in this section:
 
-| Item                     | Value           |
-|--------------------------|-----------------|
-| Upstream Name            | pygoat-upstream |
-| Load balancing strategy  | Round Robin     |
+    | Item                     | Value           |
+    |--------------------------|-----------------|
+    | Upstream Name            | pygoat-upstream |
+    | Load balancing strategy  | Round Robin     |
 
 1. In the **Servers** section, click **+Add item**.
 
 1. Enter the following data in this section:
 
-| Item                     | Value                 |
-|--------------------------|-----------------------|
-| Host                     | workloads.f5demos.com |
-| Port                     | 8000                  |
-| Down                     | FALSE                 |
-| Backup                   | FALSE                 |
+    | Item                     | Value                 |
+    |--------------------------|-----------------------|
+    | Host                     | workloads.f5demos.com |
+    | Port                     | 8000                  |
+    | Down                     | FALSE                 |
+    | Backup                   | FALSE                 |
 
-> Note: Do not enter any information into the **Zone** portion of the template form.
+    > Note: Do not enter any information into the **Zone** portion of the template form.
 
-What did we configure in the **HTTP Upstreams** portion of the template?
+    What did we configure in the **HTTP Upstreams** portion of the template?
 
-- An upstream that is configured with a Round Robin loan balancing strategy (unused now, but would be relevant if we had multiple upstream servers configured)
-- A single upstream server, located at `workloads.f5demos.com` on port `8000` was configured
-- This server was not set to **Down**
-- This server was not set as a **Backup** server
-- No Zones were configured
+    - An upstream that is configured with a Round Robin loan balancing strategy (unused now, but would be relevant if we had multiple upstream servers configured)
+    - A single upstream server, located at `workloads.f5demos.com` on port `8000` was configured
+    - This server was not set to **Down**
+    - This server was not set as a **Backup** server
+    - No Zones were configured
 
-> Note: the value `pygoat-upstream` was entered into both the **HTTP Servers** and **HTTP Upstreams** templates. Why? This unique identifier needed to match so the templating system could properly correlate these objects together even though they were configured on different pages of the template.
+    > Note: the value `pygoat-upstream` was entered into both the **HTTP Servers** and **HTTP Upstreams** templates. Why? This unique identifier needed to match so the templating system could properly correlate these objects together even though they were configured on different pages of the template.
 
 1. Click **Next**. This will show you a preview of the config generated from the templates.
 
@@ -283,39 +284,39 @@ What did we configure in the **HTTP Upstreams** portion of the template?
 
 1. Click the **Publish** button. If successful, you should see a message indicating this.
 
-(TBD screenshot)
+    (TBD screenshot)
 
 1. Click the **Close and Exit** button.
 
 1. Click **Template Submissions** in the left navigation.
 
-You should see that the **Basic Reverse Proxy** has been deployed to 1 instance:
+    You should see that the **Basic Reverse Proxy** has been deployed to 1 instance:
 
-(TBD screenshot)
+    (TBD screenshot)
 
 1. Click on the **Basic Reverse Proxy** row. Details of the template submission appear.
 
 1. At the left side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
 
-(TBD screenshot)
+    (TBD screenshot)
 
-If we wanted to make changes to the submission, we could simply edit the values here, and publish configuration as we did before.
+    If we wanted to make changes to the submission, we could simply edit the values here, and publish configuration as we did before.
 
 #### Test the Deployed Configuration
 
 1. Back in the FireFox **Lab Links** tab, click on the **PyGoat Web Application** link once again. The application should load now:
 
-(TBD screenshot)
+    (TBD screenshot)
 
 ### Provision Access to a Template Submission
 
-Since the initial deployment of the PyGoat application using templates worked well, you (as Paul Platops) would like to extend the editing of this particular configuration to one of the app developers, Jane Dev. Paul would like to only grant Jane access to this template submission, instead of the whole template. He wants to allow Jane to ***only*** be able to make changes to the values used in the templated configuration for the specific NGINX instance that was targeted in the template submission. He does not want Jane to be able to use templates to target other NGINX instances in their data center. How will he accomplish this?
+Since the initial deployment of the PyGoat application using templates worked well, you (as Paul Platops) would like to extend the editing of this particular configuration to one of the app developers, Jane Developer. Paul would like to only grant Jane access to this template submission, instead of the whole template. He wants to allow Jane to ***only*** be able to make changes to the values used in the templated configuration for the specific NGINX instance that was targeted in the template submission. He does not want Jane to be able to use templates to target other NGINX instances in their data center. How will he accomplish this?
 
 #### Use RBAC to Grant Access to the Template Submission
 
 1. In NIM, click the top left module menu, and select **Settings**.
 
-1. Click **Users**. Note that Jane Dev already has an account, and that her account is mapped to the **developer** role.
+1. Click **Users**. Note that Jane Developer already has an account, and that her account is mapped to the **developer** role.
 
 1. Click **Roles**. Note that the developer role is listed, and already has some permissions associated with it.
 
@@ -327,15 +328,15 @@ Since the initial deployment of the PyGoat application using templates worked we
 
 1. Select **Analytics** for the *Feature*.
 
-Note that *Access* is already preset to **READ**, which is sufficient.
+    Note that *Access* is already preset to **READ**, which is sufficient.
 
 1. Click **Save**. **Permission Update Staged** will be displayed. Once applied, this will permit the developers to have access to the analytics data on the NIM dashboard.
 
-At this point, the staged permissions look like this:
+    At this point, the staged permissions look like this:
 
-(TBD screenshot)
+    (TBD screenshot)
 
-Next we will add the ability for the developer role to update the Template Submission object of the NGINX instance that proxies the PyGoat application.
+    Next we will add the ability for the developer role to update the Template Submission object of the NGINX instance that proxies the PyGoat application.
 
 1. Click **Add Permission**.
 
@@ -351,7 +352,7 @@ Next we will add the ability for the developer role to update the Template Submi
 
 1. Select **nginx.f5demos.com** for the system selection to the right.
 
-(TBD screenshot)
+    (TBD screenshot)
 
 1. Click **Save**. You will see a **Permission Update Staged** message.
 
@@ -365,7 +366,7 @@ We are now going to log in as Jane Developer so that we can verify she has acces
 
 1. Click the person icon in the top right corner, then the **Logout** link.
 
-(TBD screenshot)
+    (TBD screenshot)
 
 1. Click **Sign In**. You will be redirected to KeyCloak. When prompted for credentials, enter `janedev` as the user, `NIM123!@#` as the password.
 
@@ -373,25 +374,27 @@ We are now going to log in as Jane Developer so that we can verify she has acces
 
 1. You are presented with the Overview Dashboard showing the metrics of the **nginx.f5demos.com** instance. Jane is able to see this because we added access to do so via the developer role.
 
-> Note: The Certificates panel is not loading any data. Why? If you hover over the red diamond icon, you will see that access has been denied. Access to view certificate data has not been granted to the developer role. This is not something we will address at this time, but you are welcome to come back to this after completing the lab to resolve this issue.
+    > Note: The Certificates panel is not loading any data. Why? If you hover over the red diamond icon, you will see that access has been denied. Access to view certificate data has not been granted to the developer role. This is not something we will address at this time, but you are welcome to come back to this after completing the lab to resolve this issue.
 
-(TBD screenshot)
+    (TBD screenshot)
 
 ### Update Template Submission as Jane Developer
 
 1. Click **Template Submissions** in the left navigation.
 
-Notice the **Templates** menu item does not appear, as we have not granted the developer role access to the Templates themselves.
+    Notice the **Templates** menu item does not appear, as we have not granted the developer role access to the Templates themselves.
 
 1. Click on the **Basic Reverse Proxy** row. Details of the template submission appear.
 
 1. At the left side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
 
-You should see the familiar template filled with values similar to what you saw earlier.
+    You should see the familiar template filled with values similar to what you saw earlier.
 
 1. (try turning off default server)
 
-1. On the **HTTP Servers** view, change the *Listen -> Default Server* value to **FALSE**.
+1. On the **HTTP Servers** view, click the edit icon on the **pygoat** row.
+
+1. Change the *HTTP Server Inputs -> Listen -> Default Server* value to **FALSE**.
 
 1. Click the **Next** button until you see the preview of the config generated from the templates. Note the diff view shows that the `default_server` is being removed from the listen directive.
 
@@ -415,13 +418,13 @@ We are now going to log in as Paul Platops so that we can import and grant devel
 
 1. Click the green **+ Create** button in the upper right corner.
 
-At this point we have the choice to create a new augment template from scratch, or to import an existing one. An augment template bundle has been created for you, so select **Import**.
+    At this point we have the choice to create a new augment template from scratch, or to import an existing one. An augment template bundle has been created for you, so select **Import**.
 
 1. Click **Browse** to browse the JumpHost's file system for the template we wish to import.
 
 1. Select the `custom_404_augment.tar.gz` file, and click **Open**.
 
-This augment was designed to be used with the base template we used earlier in the lab. It adds the capability to intercept 404 responses from the upstream, and respond with a custom html page. Yes, the custom response page has cats. This is fine.
+    This augment template was designed to be used with the base template we used earlier in the lab. It adds the capability to intercept 404 responses from the upstream, and respond with a custom html page. Yes, the custom response page has cats. This is fine.
 
 1. Click the green **Parse** button in the lower right to scan and analyze the contents of this template bundle.
 
@@ -432,3 +435,64 @@ This augment was designed to be used with the base template we used earlier in t
 1. Click the **Import** button.
 
 1. You will see the **Config Template Created** message, and see the newly imported augment template on the **Templates** page.
+
+### Apply the Augment Template
+
+As Jane Developer, we will attach the custom 404 handler to the NGINX configuration that she has been granted access to. We will use an augment template to accomplish this.
+
+1. Click the person icon in the top right corner, then the **Logout** link.
+
+1. Click **Sign In**. You will be redirected to KeyCloak. When prompted for credentials, enter `janedev` as the user, `NIM123!@#` as the password.
+
+1. Click the **Instance Manager** tile.
+
+1. Click **Template Submissions** in the left navigation.
+
+1. Click on the **Basic Reverse Proxy** row. Details of the template submission appear.
+
+1. At the left side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
+
+    You should see the familiar template filled with values similar to what you saw earlier.
+
+1. Click **Next** to transition to the **Choose Augments** view. Note the augment template Paul Platops imported earlier is ready for use.
+
+    ![choose augment](images/image.png)
+
+1. Click the checkbox on the **Custom 404 Response** row. When you do, the template form builder will add a new step indicating there is an additional step needed to capture inputs for this new augment template.
+
+    ![augment selected](images/image-1.png)
+
+1. Click the **Next** button until you reach the **Custom 404 Response** input step.
+
+    This step only has one option - to enable it or not.
+
+1. Choose **TRUE** in the *Use Custom 404 Response* input.
+
+    ![enable 404 response](images/image-4.png)
+
+1. Click **Next**. You will be presented with the diff view showing the changes that would happen to the nginx.conf file if the changes were to be published.
+
+    It is important to understand that Augment templates are applied to configuration files within `include` directives. To see the details of what the augment template adds, click the file selector dropdown at the top of the editor.
+
+    ![404 included files](images/image-2.png)
+
+    Notice there are 2 new files in the generated configuration:
+
+      - /etc/nginx/augments/http-server/base_http-server1_*&lt;unique identifier&gt;*.conf
+      - /usr/share/nginx/html/custom_404.html
+
+1. Click on the first file. This is the file that will be included in the main `nginx.conf` file. It contains the config to intercept 404 errors from the upstream, and will serve up the contents of a static file included in the template bundle.
+
+1. Click on the second file. This is the static HTML page that will be displayed by the configuration in the previous file.
+
+1. Click the **Publish** button. If successful, you should see a message indicating this.
+
+### Test the Augment Template
+
+1. In FireFox, click the tab for the PyGoat app.
+
+1. Modify the URL to a reference a page that does not exist, such as: `https://pygoat.f5demos.com/login/non-existent-page.html` and hit enter.
+
+1. You will see the custom 404 page. You were previously warned there would be cats.
+
+    ![cat 404](images/image-3.png)
