@@ -28,17 +28,13 @@ Maintain consistency and best practices across your NGINX estate by managing cru
 
 Allow teams to manage and own the contents of their own location or server blocks.
 
-<!-- ### Provided Common Use Cases
-
-Load balancing and API gateway templates from F5 NGINX included. -->
-
 ### Maximum Flexibility
 
 Customize existing templates or build your own to suit your needs.
 
 ## Config Templates Design
 
-### Types of templates
+### Types of Templates
 
 Configuration templates come in two types:
 
@@ -87,6 +83,10 @@ Ready to get started?
 
 ## Templating Lab
 
+### Goal
+
+The goal of this lab is to provide an introduction to the NIM templating system by walking through a few use cases that personas in a typical organization might want to implement. The lab will provide pre-built templates for your use. Authoring templates is out of scope for this lab.
+
 ### Overview
 
 The UDF lab consists of:
@@ -105,19 +105,19 @@ In the first portion of the lab you will be masquerading as Paul Platops. Paul i
 
 Begin by logging into NIM as Paul in the following steps. Paul has the NIM admin role assigned to him.
 
-1. In the UDF deployment, select the **NIM** access method of the **NIM** component.
+1. In the UDF deployment, select the **FireFox** access method of the **JumpHost** component.
 
-    (TODO: image)
+    ![firefox access method](images/image-15.png)
 
 1. Click **Sign In**. You will be redirected to KeyCloak. When prompted for credentials, enter `paulplatops` as the user, `NIM123!@#` as the password.
 
 1. Click the **Instance Manager** tile.
 
-    (TODO: image)
+    ![instance manager tile](images/image-14.png)
 
     If you are familiar with NIM, things may seem typical to you, with the addition of **Templates** and **Template Submissions** links in the left navigation:
 
-    (TODO: image)
+    ![templating navigation links](images/image-16.png)
 
 1. Click the **Templates** link. Note there is one base template listed, **F5 Global Default Base**
 
@@ -135,7 +135,7 @@ In UDF, click the **Firefox** access method of the **JumpHost** component. This 
 
 1. Back in the NIM tab, click the **Instances** link in the left navigation.
 
-    (TODO: image)
+    ![instances nav link](images/image-17.png)
 
 1. Select **nginx.f5demos.com**. Note that it is online, and ready to receive management commands from NIM.
 
@@ -282,9 +282,9 @@ Acting as as Paul, you will first install the base template he developed. Then, 
 
 1. Click the filename dropdown (currently displaying `/etc/nginx/nginx.conf`) at the top of the screen. Click `/etc/nginx.mime.types` file. As a convenience, this base template also creates this file for you, and will publish it to the instance in addition to the main `nginx.conf` file.
 
-1. Click the **Publish** button. If successful, you should see a message indicating this.
+1. Click the **Publish** button. If successful, you should see a message indicating so.
 
-    (TBD screenshot)
+    ![publish success](images/image-18.png)
 
 1. Click the **Close and Exit** button.
 
@@ -292,13 +292,13 @@ Acting as as Paul, you will first install the base template he developed. Then, 
 
     You should see that the **Basic Reverse Proxy** has been deployed to 1 instance:
 
-    (TBD screenshot)
+    ![template deploy count](images/image-19.png)
 
 1. Click on the **Basic Reverse Proxy** row. Details of the template submission appear.
 
 1. At the left side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
 
-    (TBD screenshot)
+    ![click action button](images/image-20.png)
 
     If we wanted to make changes to the submission, we could simply edit the values here, and publish configuration as we did before.
 
@@ -306,7 +306,7 @@ Acting as as Paul, you will first install the base template he developed. Then, 
 
 1. Back in the FireFox **Lab Links** tab, click on the **PyGoat Web Application** link once again. The application should load now:
 
-    (TBD screenshot)
+    ![pygoat application home](images/image-21.png)
 
 ### Provision Access to a Template Submission
 
@@ -334,7 +334,7 @@ Since the initial deployment of the PyGoat application using templates worked we
 
     At this point, the staged permissions look like this:
 
-    (TBD screenshot)
+    ![developer role permissions state](images/image-22.png)
 
     Next we will add the ability for the developer role to update the Template Submission object of the NGINX instance that proxies the PyGoat application.
 
@@ -346,13 +346,13 @@ Since the initial deployment of the PyGoat application using templates worked we
 
 1. Click **Add Additional Access**.
 
-1. Select **Read**, **Create** and **Update** for *Access*.
+1. Select **Create**, **Read** and **Update** for *Access*.
 
 1. Select **Systems** for *Applies to**.
 
 1. Select **nginx.f5demos.com** for the system selection to the right.
 
-    (TBD screenshot)
+    ![template submissions role details](images/image-23.png)
 
 1. Click **Save**. You will see a **Permission Update Staged** message.
 
@@ -364,9 +364,9 @@ Since the initial deployment of the PyGoat application using templates worked we
 
 We are now going to log in as Jane Developer so that we can verify she has access to update the template submission.
 
-1. Click the person icon in the top right corner, then the **Logout** link.
+1. Click the person icon in the top right corner, then click the **Logout** link.
 
-    (TBD screenshot)
+    ![logout](images/image-24.png)
 
 1. Click **Sign In**. You will be redirected to KeyCloak. When prompted for credentials, enter `janedev` as the user, `NIM123!@#` as the password.
 
@@ -376,7 +376,7 @@ We are now going to log in as Jane Developer so that we can verify she has acces
 
     > Note: The Certificates panel is not loading any data. Why? If you hover over the red diamond icon, you will see that access has been denied. Access to view certificate data has not been granted to the developer role. This is not something we will address at this time, but you are welcome to come back to this after completing the lab to resolve this issue.
 
-    (TBD screenshot)
+    ![certificates tile load failed](images/image-25.png)
 
 ### Update Template Submission as Jane Developer
 
@@ -390,25 +390,23 @@ We are now going to log in as Jane Developer so that we can verify she has acces
 
     You should see the familiar template filled with values similar to what you saw earlier.
 
-1. (try turning off default server)
-
 1. On the **HTTP Servers** view, click the edit icon on the **pygoat** row.
 
 1. Change the *HTTP Server Inputs -> Listen -> Default Server* value to **FALSE**.
 
 1. Click the **Next** button until you see the preview of the config generated from the templates. Note the diff view shows that the `default_server` is being removed from the listen directive.
 
-1. Click the **Publish** button. If successful, you should see a message indicating this.
+1. Click the **Publish** button. If successful, you should see a message indicating so.
 
 1. On the PyGoat FireFox tab, refresh the browser to ensure the application is still working.
 
 You did it! What if Jane would like to control aspects of the configuration that have not been exposed in the base template? As you read about in the lab introduction, this this is where Augment Templates can be used.
 
-### Import an Augment Template
+### Import a Custom 404 Augment Template
 
-We are now going to log in as Paul Platops so that we can import and grant developers access to an Augment Template.
+We are now going to log in as Paul Platops so that we can import and grant developers access to an Augment Template that attaches a custom pre-built 404 response handler.
 
-1. Click the person icon in the top right corner, then the **Logout** link.
+1. Click the person icon in the top right corner, then click the **Logout** link.
 
 1. Click **Sign In**. You will be redirected to KeyCloak. When prompted for credentials, enter `paulplatops` as the user, `NIM123!@#` as the password.
 
@@ -436,11 +434,13 @@ We are now going to log in as Paul Platops so that we can import and grant devel
 
 1. You will see the **Config Template Created** message, and see the newly imported augment template on the **Templates** page.
 
-### Apply the Augment Template
+  ![custom 404 template imported](images/image-5.png)
 
-As Jane Developer, we will attach the custom 404 handler to the NGINX configuration that she has been granted access to. We will use an augment template to accomplish this.
+### Apply the Custom 404 Augment Template
 
-1. Click the person icon in the top right corner, then the **Logout** link.
+As Jane Developer, we will attach the custom 404 handler to the NGINX configuration that she has been granted access to. We (as Jane Developer) will use the augment template that Paul just imported to accomplish this.
+
+1. Click the person icon in the top right corner, then click the **Logout** link.
 
 1. Click **Sign In**. You will be redirected to KeyCloak. When prompted for credentials, enter `janedev` as the user, `NIM123!@#` as the password.
 
@@ -485,7 +485,7 @@ As Jane Developer, we will attach the custom 404 handler to the NGINX configurat
 
 1. Click on the second file. This is the static HTML page that will be displayed by the configuration in the previous file.
 
-1. Click the **Publish** button. If successful, you should see a message indicating this.
+1. Click the **Publish** button. If successful, you should see a message indicating so.
 
 ### Test the Augment Template
 
@@ -496,3 +496,128 @@ As Jane Developer, we will attach the custom 404 handler to the NGINX configurat
 1. You will see the custom 404 page. You were previously warned there would be cats.
 
     ![cat 404](images/image-3.png)
+
+### Import another Augment Template
+
+We are now going to log in as Paul Platops so that we can import and grant persons in the **secops** role access to rate limiting augment template.
+
+1. Click the person icon in the top right corner, then click the **Logout** link.
+
+1. Click **Sign In**. You will be redirected to KeyCloak. When prompted for credentials, enter `paulplatops` as the user, `NIM123!@#` as the password.
+
+1. Click the **Instance Manager** tile.
+
+1. In the left navigation, click **Templates**.
+
+1. Click the green **+ Create** button in the upper right corner.
+
+1. Select **Import**.
+
+1. Click **Browse** to browse the JumpHost's file system for the template we wish to import.
+
+1. Select the `rate_limit_augment.tar.gz` file, and click **Open**.
+
+    This augment template was designed to be used with the base template we used earlier in the lab. It adds the capability to attach a rate limiting policy to an HTTP Server.
+
+1. Click the green **Parse** button in the lower right to scan and analyze the contents of this template bundle.
+
+1. As you did earlier in the lab, check the **Allow Signature Bypass** checkbox to override the import dialog.
+
+1. Below the checkbox, you should note that there was one template detected in a bundle, named **Rate Limiting**.
+
+1. Click the **Import** button.
+
+1. You will see the **Config Template Created** message, and see the newly imported augment template on the **Templates** page.
+
+    ![rate limiting template imported](images/image-6.png)
+
+### Apply the Rate Limiting Augment Template
+
+Sally Secops has noticed that the PyGoat application's login API has been overused by actors with questionable intent, also resulting in degraded application performance. Sally would like to attach rate limiting to the NGINX configuration or the PyGoat application's NGINX HTTP Server. We (as Sally Secops) will use the augment template that Paul just imported to accomplish this.
+
+1. Click the person icon in the top right corner, then click the **Logout** link.
+
+1. Click **Sign In**. You will be redirected to KeyCloak. When prompted for credentials, enter `sallysecops` as the user, `NIM123!@#` as the password.
+
+1. Click the **Instance Manager** tile.
+
+1. Click **Template Submissions** in the left navigation.
+
+1. Click on the **Basic Reverse Proxy** row. Details of the template submission appear.
+
+1. At the left side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
+
+    You should see the familiar template filled with values similar to what you saw earlier.
+
+1. Click **Next** to transition to the **Choose Augments** view. Note the **Custom 404 Response** augment template that Jane used on this template submission is still selected. Select the checkbox next to **Rate Limiting**.
+
+    ![initial state of selected augments](images/image-7.png)
+
+1. Click the checkbox on the **Custom 404 Response** row. When you do, the template form builder will add a new step indicating there is an additional step needed to capture inputs for this new augment template.
+
+    ![apply rate limiting augment](images/image-8.png)
+
+1. Click the **Next** button until you reach the **Rate Limiting** input step.
+
+    This step has 3 options. Enter the values from the following table:
+
+    | Item                | Value                 |
+    |---------------------|-----------------------|
+    | Apply Rate Limiting | TRUE                  |
+    | Rate Limit Method   | Binary Remote Address |
+    | Requests Per Second | 5                     |
+
+    > Note: Realistically, 5 requests per second per client is extremely low. We are just using this value for illustrative purposes.
+
+    ![rate limiting settings](images/image-9.png)
+
+1. Click **Next**. You will be presented with the diff view showing the changes that would happen to the nginx.conf file if the changes were to be published.
+
+    Notice that there are two changes in the diff editor: one in the http context, and one in the server context. Since the Rate Limiting template needs to insert directives into both contexts, this template emits two different include statements as pictured below.
+
+    ![rate limiting preview](images/image-10.png)
+
+    In addition to the changes to `nginx.conf`, there are 2 new files in the generated configuration:
+
+      - /etc/nginx/augments/http-server/base_http-server1_*&lt;unique identifier&gt;*.conf
+      - /etc/nginx/augments/http/*&lt;unique identifier&gt;*.conf
+
+1. Click on each of these new files. They are files that will be included in the main `nginx.conf` file at the `http` and `server` contexts.
+
+    ![rate limiting preview new files](images/image-11.png)
+
+1. Click the **Publish** button. If successful, you should see a message indicating so.
+
+### Test the Rate Limiting Augment Template
+
+In this final section of the lab, we will use the hey utility to test the efficacy of the rate limiting augment template that you just deployed.
+
+1. In the UDF deployment, select the **Web Shell** access method of the **JumpHost** component.
+
+1. In the Web Shell, run the following:
+
+    ```shell
+    hey -n 10 -c 1 -q 2 https://pygoat.f5demos.com/login/
+    ```
+
+    This will execute a total of `10` requests using `1` concurrent worker at a rate of `2` requests per second against the `https://pygoat.f5demos.com/login/` URL. You should see output similar to the following:
+
+    ![successful requests](images/image-12.png)
+
+    Notice that all 10 requests were successful with a status code of 200 observed. Let's try increasing the rate to see what happens...
+
+1. In the Web Shell, run the following:
+
+    ```shell
+    hey -n 10 -c 1 -q 6 https://pygoat.f5demos.com/login/
+    ```
+
+    This will execute a total of `10` requests using `1` concurrent worker at a rate of `6` requests per second against the `https://pygoat.f5demos.com/login/` URL. If you recall, this rate is above the rate limiting threshold you set in the augment template. You should see output similar to the following:
+
+    ![rate limited requests](images/image-13.png)
+
+    Notice that the first requests were successful with a status code of 200 observed. Then, `hey` started to receive status code 503 (Service Unavailable), indicating that this client has been rate limited for exceeding the threshold you set.
+
+### Conclusion
+
+As you have witnessed, NIM's Templating framework gives organizations the control they need to empower users of their NGINX platform. Via templates, these users can apply use cases to their application delivery tier without requiring they be NGINX configuration experts. Additionally, the framework allows organizations to provide this capability to users in a "least-privileged" manner - only granting them permissions to execute templates on the instances they have been assigned. This ensures compliance, and significantly narrows the "blast radius" in the event an outage occurs due to human error while configuring.
