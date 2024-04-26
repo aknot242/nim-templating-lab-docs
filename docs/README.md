@@ -468,7 +468,7 @@ As Jane Developer, we will attach the custom 404 handler to the NGINX configurat
 
     ![choose augment](images/image.png)
 
-1. Click the checkbox on the **Custom 404 Response** row. When you do, the template form builder will add a new step indicating there is an additional step needed to capture inputs for this new augment template.
+1. Click the checkbox on the **Custom 404 Response** row. When you do, the template form builder will add a new step indicating there is an additional form needed to capture inputs for this new augment template.
 
     ![augment selected](images/image-1.png)
 
@@ -563,7 +563,7 @@ Sally Secops has noticed that the PyGoat application's login API has been overus
 
     ![initial state of selected augments](images/image-7.png)
 
-1. Click the checkbox on the **Rate Limiting** row. When you do, the template form builder will add a new step indicating there is an additional step needed to capture inputs for this new augment template.
+1. Click the checkbox on the **Rate Limiting** row. When you do, the template form builder will add a new step indicating there is an additional form needed to capture inputs for this new augment template.
 
     ![apply rate limiting augment](images/image-8.png)
 
