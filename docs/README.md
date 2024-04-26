@@ -109,6 +109,8 @@ Begin by logging into NIM as Paul in the following steps. Paul has the NIM admin
 
     ![firefox access method](images/image-15.png)
 
+1. Under Lab Links, click the **NIM** link to open NIM in a new tab.
+
 1. Click **Sign In**. You will be redirected to KeyCloak. When prompted for credentials, enter `paulplatops` as the user, `NIM123!@#` as the password.
 
 1. Click the **Instance Manager** tile.
