@@ -336,6 +336,8 @@ Since the initial deployment of the PyGoat application using templates worked we
 
 1. Select **Analytics** for the *Feature*.
 
+1. Click **Add Additional Access**.
+
     Note that *Access* is already preset to **READ**, which is sufficient.
 
 1. Click **Save**. **Permission Update Staged** will be displayed. Once applied, this will permit the developers to have access to the analytics data on the NIM dashboard.
@@ -356,7 +358,7 @@ Since the initial deployment of the PyGoat application using templates worked we
 
 1. Select **Create**, **Read** and **Update** for *Access*.
 
-1. Select **Systems** for *Applies to**.
+1. Select **Systems** for *Applies to*.
 
 1. Select **nginx.f5demos.com** for the system selection to the right.
 
