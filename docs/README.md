@@ -111,7 +111,11 @@ Begin by logging into NIM as Paul in the following steps. Paul has the NIM admin
 
 1. Under Lab Links, click the **NIM** link to open NIM in a new tab.
 
+    ![nim lab link](images/image-26.png)
+
 1. Click **Sign In**. You will be redirected to KeyCloak. When prompted for credentials, enter `paulplatops` as the user, `NIM123!@#` as the password.
+
+    ![paul platops keycloak login](images/image-28.png)
 
 1. Click the **Instance Manager** tile.
 
@@ -129,9 +133,11 @@ Begin by logging into NIM as Paul in the following steps. Paul has the NIM admin
 
 In this section, we will examine the default configuration of the NGINX server, and afterward generate a new one for the PyGoat application.
 
-In UDF, click the **Firefox** access method of the **JumpHost** component. This will open a virtual Firefox instance in a browser tab, with a lab links page displaying.
+1. In FireFox, click the **PyGoat Web Application** link. This link uses a hostname record that references the NGINX instance.
 
-1. Click the **PyGoat Web Application** link. This link uses a hostname record that references the NGINX instance. Since NGINX has not yet been configured to proxy requests to the upstream server hosting the PyGoat application, you will see an "Unable to connect" page. We need to generate configuration that meets our requirements.
+    ![pygoat lab link](images/image-27.png)
+
+    Since NGINX has not yet been configured to proxy requests to the upstream server hosting the PyGoat application, you will see an **"Unable to connect"** page. To make this work, we need to generate NGINX configuration that meets our requirements.
 
 ### Examine Default Configuration
 
