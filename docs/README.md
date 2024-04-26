@@ -199,7 +199,7 @@ Acting as Paul, you will first install the base template he developed. Then, you
 
 1. In the **Choose Augments** view, click **Next**.
 
-1. On the **HTTP Servers** view, click the **Add HTTP Servers* link. This will reveal a new form to collect server information.
+1. On the **HTTP Servers** view, click the **Add HTTP Servers** link. This will reveal a new form to collect server information.
 
 1. Enter the following data in this section:
 
@@ -304,7 +304,7 @@ Acting as Paul, you will first install the base template he developed. Then, you
 
 1. Click on the **Basic Reverse Proxy** row. Details of the template submission appear.
 
-1. At the left side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
+1. At the right side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
 
     ![click action button](images/image-20.png)
 
@@ -394,7 +394,7 @@ We are now going to log in as Jane Developer so that we can verify she has acces
 
 1. Click on the **Basic Reverse Proxy** row. Details of the template submission appear.
 
-1. At the left side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
+1. At the right side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
 
     You should see the familiar template filled with values similar to what you saw earlier.
 
@@ -458,7 +458,7 @@ As Jane Developer, we will attach the custom 404 handler to the NGINX configurat
 
 1. Click on the **Basic Reverse Proxy** row. Details of the template submission appear.
 
-1. At the left side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
+1. At the right side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
 
     You should see the familiar template filled with values similar to what you saw earlier.
 
@@ -553,7 +553,7 @@ Sally Secops has noticed that the PyGoat application's login API has been overus
 
 1. Click on the **Basic Reverse Proxy** row. Details of the template submission appear.
 
-1. At the left side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
+1. At the right side of the **nginx.f5demos.com** row, there will be a `...` menu in the **Actions** column. Click that, then select **Edit Submission**.
 
     You should see the familiar template filled with values similar to what you saw earlier.
 
