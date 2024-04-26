@@ -2,7 +2,7 @@
 
 ## Background
 
-Since the inception of NGINX Instance Manager (NIM), managing NGINX configuration has been a use case of prime importance that F5 has invested development in. To date, capabilities in NIM to edit configuration have required knowledge of NGINX configuration syntax, and direct manipulation of conf files. For users who already have intimate knowledge of this, this may be trivial. However, not all organizations have staff that are experienced and comfortable in doing so. In an enterprise that has multiple personas with a stake in web application or API delivery and security, this may necessitate a different approach to aid usability and confidence in making configuration changes that are intended.
+Since the inception of NGINX Instance Manager (NIM), the ability to centrally manage NGINX configuration has been of prime importance to customers. As a result, F5 continues to invest in this capability. To date, capabilities in NIM to edit configuration have required knowledge of NGINX configuration syntax and the direct manipulation of conf files. For users who already have intimate knowledge of NGINX configuration, this may be trivial. However, not all organizations have staff that meet this criteria. In an enterprise that has multiple personas with a stake in web application or API delivery and security, this may necessitate a different approach to aid usability and confidence in making configuration changes that are intended.
 
 ## Announcing Config Templates for NIM
 
@@ -147,7 +147,7 @@ You will see the NIM config editor, displaying the existing state of the NGINX c
 
 **Objective:** Install a template, and use it to deploy proxy services for the OWASP PyGoat application.
 
-Paul has been interested in ways to make his job easier and enabling others in his organization to be self-sufficient. To this end, Paul has developed a base template for NIM to deploy proxy services for applications using his organizations preferred configuration practices. Paul is one of a few in his organization that is comfortable with NGINX configuration, so he wants to make it easy for others to be able to deploy their applications on NGINX.
+Paul has been interested in ways to make his job easier while enabling others in his organization to be self-sufficient. To this end, Paul has developed a base template for NIM to deploy proxy services for applications using his organizations preferred configuration practices. Paul is one of a few in his organization that is comfortable with NGINX configuration, so he wants to make it easy for others to be able to deploy their applications on NGINX.
 
 Acting as as Paul, you will first install the base template he developed. Then, you will test this template by actually deploying it to provide an HTTP proxy for the PyGoat application. The PyGoat application has already been installed on the **workloads** server for you.
 
