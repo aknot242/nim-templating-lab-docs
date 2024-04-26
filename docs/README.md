@@ -183,7 +183,7 @@ Acting as as Paul, you will first install the base template he developed. Then, 
 
 1. In the left navigation, click **Templates**.
 
-1. At the left side of the **Basic Reverse Proxy** template there will be a `...` menu in the **Actions** column. Click that, then select **Preview and Generate**. This will present a series of input forms to collect information for the new NGINX HTTP proxy configuration deployment.
+1. At the right side of the **Basic Reverse Proxy** template there will be a `...` menu in the **Actions** column. Click that, then select **Preview and Generate**. This will present a series of input forms to collect information for the new NGINX HTTP proxy configuration deployment.
 
 1. Select the **Publish to an instance** radio button.
 
