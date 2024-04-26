@@ -356,7 +356,7 @@ Since the initial deployment of the PyGoat application using templates worked we
 
 1. Select **Create**, **Read** and **Update** for *Access*.
 
-1. Select **Systems** for *Applies to**.
+1. Select **Systems** for *Applies to*.
 
 1. Select **nginx.f5demos.com** for the system selection to the right.
 
