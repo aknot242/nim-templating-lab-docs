@@ -151,7 +151,7 @@ You will see the NIM config editor, displaying the existing state of the NGINX c
 
 Paul has been interested in ways to make his job easier while enabling others in his organization to be self-sufficient. To this end, Paul has developed a base template for NIM to deploy proxy services for applications using his organizations preferred configuration practices. Paul is one of a few in his organization that is comfortable with NGINX configuration, so he wants to make it easy for others to be able to deploy their applications on NGINX.
 
-Acting as as Paul, you will first install the base template he developed. Then, you will test this template by actually deploying it to provide an HTTP proxy for the PyGoat application. The PyGoat application has already been installed on the **workloads** server for you.
+Acting as Paul, you will first install the base template he developed. Then, you will test this template by actually deploying it to provide an HTTP proxy for the PyGoat application. The PyGoat application has already been installed on the **workloads** server for you.
 
 #### Import a Custom Base Template
 
